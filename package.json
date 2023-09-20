@@ -1,0 +1,21 @@
+{
+  "name": "trilium.rocks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@digitak/esrun": "^3.2.24",
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@typescript-eslint/parser": "^6.7.2",
+    "dotenv": "^16.3.1",
+    "esbuild": "^0.19.3",
+    "eslint": "^8.49.0",
+    "trilium-etapi": "^0.1.2",
+    "typescript": "^5.2.2"
+  }
+}
