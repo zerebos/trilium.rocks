@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "esrun scripts/build.ts",
+    "build-main": "esrun scripts/build.ts -- --module=main",
+    "build-styles": "esrun scripts/build.ts -- --module=styles",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,6 +18,7 @@
     "dotenv": "^16.3.1",
     "esbuild": "^0.19.3",
     "eslint": "^8.49.0",
+    "highlight.js": "^11.8.0",
     "trilium-etapi": "^0.1.2",
     "typescript": "^5.2.2"
   }
