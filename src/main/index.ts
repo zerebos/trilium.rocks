@@ -8,6 +8,7 @@ import fixSubMenu from "./fixes/submenu";
 import generateTOC from "./navigation/toc";
 import addExternalLinks from "./fixes/externallinks";
 import injectSwagger from "./other/swagger";
+import makeMobileMenu from "./other/mobile";
 
 // https://instance-name/api/notes/vW1cXaYNN7OM/download
 
@@ -30,6 +31,8 @@ function $try<T extends (...a: unknown[]) => unknown>(func: T, ...args: Paramete
 //     }
 // };
 
+
+
 // Perform fixes first
 $try(fixActiveLink);
 $try(fixTableHeaders);
@@ -44,6 +47,12 @@ $try(generateTOC);
 // Finally, other features
 $try(highlight);
 $try(injectSwagger);
+$try(makeMobileMenu);
+
+// mobileMenu.append(document.querySelector("#menu > ul")!);
+// mobileMenu.append(document.querySelector("#sidebar")!);
+
+
 
 
 // try {fixActiveLink();}

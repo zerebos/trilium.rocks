@@ -1,0 +1,39 @@
+#toc {
+    flex: var(--pane-size);
+    position: sticky;
+    top: calc(72px + 1rem);
+    height: fit-content;
+    background: var(--top-layer);
+    margin: 0;
+    padding: 16px 16px 16px 32px;
+    border-radius: 6px;
+}
+
+#toc, #toc ul {
+    list-style: none;
+}
+
+#toc ul {
+    padding-left: 16px;
+}
+
+#toc li a {
+    color: var(--text-heading);
+    transition: color 200ms ease;
+}
+
+#toc li a:hover,
+#toc li a.active {
+    color: var(--accent-color);
+}
+
+#toc::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 16px;
+    top: 20px;
+    width: 2px;
+    height: calc(100% - 40px);
+    background: rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,148 @@
+.expand {
+    display: none
+}
+
+button.expand {
+    position: relative;
+    padding: 9px;
+    margin: 9.5px 0;
+    border: 0 solid #000;
+    border-radius: 4px;
+    background: 0 0;
+    color: #fff;
+    -webkit-transition: -webkit-transform .5s;
+    -moz-transition: transform .5s;
+    -o-transition: transform .5s;
+    transition: transform .5s
+}
+
+.expanded button.expand {
+    background-color: #000;
+    -webkit-transition: -webkit-transform .5s, background-color .5s;
+    -moz-transition: transform .5s, background-color .5s;
+    -o-transition: transform .5s, background-color .5s;
+    transition: transform .5s, background-color .5s;
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg)
+}
+
+.expanded .rectangle {
+    background: #fff;
+}
+
+.rectangle {
+    display: block;
+    width: 24px;
+    height: 4px;
+    border-radius: 1px;
+    background: var(--text-heading);
+    transition: transform .5s, background-color .5s;
+}
+
+.rectangle + .rectangle {
+    margin-top: 5px
+}
+
+@media screen and (max-width: 768px) {
+    #toc {
+        display: none;
+    }
+    
+    #main {
+        padding: 1rem;
+    }
+    
+    #layout {
+        overflow: hidden;
+    }
+    
+    #menu {
+        width: auto;
+    }
+    
+    .expand {
+        display: inline-block
+    }
+    
+    #menu::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        transition: background-color 200ms ease;
+        pointer-events: none;
+    }
+    
+    #menu.expanded::after {
+        width: 100%;
+        background: rgba(0,0,0,0.7);
+    }
+    
+    
+    
+    #menu > ul {
+        position: fixed;
+        transform: translateX(-100%);
+        transition: transform 200ms ease;
+        transform-origin: 0 0;
+        z-index: 1;
+        background: #040405;
+        display: initial;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        height: 100%;
+        
+        width: 70%;
+        padding: 1rem;
+        overflow: auto;
+    }
+    
+    #menu #go-back {
+        margin-bottom: 20px;
+    }
+    
+    #menu.expanded > ul.active {
+        transform: translateX(0);
+    }
+    
+    #menu #sidebar .category > p > a {
+        font-weight: 400;
+    }
+    
+    #menu > ul > li > p > a {
+        padding: 3px 6px;
+    }
+    
+    #menu > ul > li > ul {
+        background: none;
+        opacity: 1;
+        position: initial;
+        transform: none;
+        margin-top: 0;
+        pointer-events: initial;
+        padding: 0;
+    }
+    
+    #menu > ul > li.submenu-item > p > a::after {
+        display: none;
+    }
+    
+    #menu > ul > li > ul > li > ul {
+        display: initial;
+    }
+    
+    
+    #menu > ul:not(#sidebar) > li > ul > li > ul {
+        display: none;
+    }
+    
+    #menu > ul:not(#sidebar) ul {
+        margin-left: 20px;
+    }
+}

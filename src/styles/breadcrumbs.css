@@ -1,0 +1,47 @@
+#breadcrumbs {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    overflow-x: auto;
+}
+
+#breadcrumbs li {
+    display: flex;
+    align-items: center;
+}
+
+#breadcrumbs a {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: color 200ms ease, transform 200ms ease, background-color 200ms ease;
+}
+
+#breadcrumbs img {
+    min-width: 18px;
+    filter: invert(100%);
+}
+
+#breadcrumbs li:not(:last-child)::after {
+    background: url("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" x=\"0px\" y=\"0px\" viewBox=\"0 0 256 256\"><g><g><polygon points=\"79.093,0 48.907,30.187 146.72,128 48.907,225.813 79.093,256 207.093,128\"/></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>") center;
+    content: " ";
+    display: inline-block;
+    filter: invert(0.64) sepia(0.11) saturate(0) hue-rotate(149deg) brightness(0.99) contrast(0.95);
+    height: 8px;
+    margin: 0 8px;
+    opacity: .5;
+    width: 8px;
+}
+
+#breadcrumbs li:last-child a,
+#breadcrumbs li a:hover {
+    background: #202127;
+}
+
+#breadcrumbs li a:hover {
+    transform: translateY(-3px);
+}
