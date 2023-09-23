@@ -1,19 +1,24 @@
-/* eslint-disable no-console */
 import fixActiveLink from "./fixes/activelink";
 import fixTableHeaders from "./fixes/tableheaders";
 import highlight from "./other/highlight";
 import buildSidenav from "./navigation/sidenav";
 import buildBreadcrumbs from "./navigation/breadcrumbs";
-import fixSubMenu from "./fixes/submenu";
+import fixSubMenus from "./fixes/submenu";
 import generateTOC from "./navigation/toc";
 import addExternalLinks from "./fixes/externallinks";
 import injectSwagger from "./other/swagger";
 import makeMobileMenu from "./other/mobile";
+import addOpenGraphMeta from "./other/opengraph";
 
-// https://instance-name/api/notes/vW1cXaYNN7OM/download
 
+const ETAPI_REF_NOTE_ID = "pPIXi0uwF5GX";
+const HIDDEN_SUBMENUS = ["blog"];
 const EXTERNAL_LINKS = {
-    EGFtX8Uw96FQ: "https://github.com/zadam/trilium"
+    EGFtX8Uw96FQ: "https://github.com/zadam/trilium",
+};
+const ALIASES = {
+    WqBnya4Ye8rS: "",
+    ZapIU17QNEyU: "blog"
 };
 
 function $try<T extends (...a: unknown[]) => unknown>(func: T, ...args: Parameters<T>) {
@@ -21,22 +26,27 @@ function $try<T extends (...a: unknown[]) => unknown>(func: T, ...args: Paramete
         func.apply(func, args);
     }
     catch (e) {
-        console.error(e);
+        console.error(e); // eslint-disable-line no-console
     }
 }
 
-// const $try = (func, ...args) => {
-//     try {
-//         func.apply()
-//     }
-// };
-
-
+/**
+ * Lots of these functions seem to depend on each other indirectly
+ * through DOM changes or classes or what-have-you. This is
+ * obviously not ideal as it makes things less clear, and also
+ * makes TypeScript less helpful.
+ * 
+ * TODO: Find a good way of restructuring that allows things
+ * to act a bit more harmoniously.
+ * 
+ * TODO: Make use of esbuild's define api to enable a debug
+ * build that contains all the console logs and such.
+ */
 
 // Perform fixes first
-$try(fixActiveLink);
+$try(fixActiveLink, ALIASES);
 $try(fixTableHeaders);
-$try(fixSubMenu);
+$try(fixSubMenus, HIDDEN_SUBMENUS);
 $try(addExternalLinks, EXTERNAL_LINKS);
 
 // Now layout changes
@@ -46,39 +56,6 @@ $try(generateTOC);
 
 // Finally, other features
 $try(highlight);
-$try(injectSwagger);
+$try(injectSwagger, ETAPI_REF_NOTE_ID);
 $try(makeMobileMenu);
-
-// mobileMenu.append(document.querySelector("#menu > ul")!);
-// mobileMenu.append(document.querySelector("#sidebar")!);
-
-
-
-
-// try {fixActiveLink();}
-// catch (e) {console.error(e);}
-
-// try {highlight();}
-// catch (e) {console.error(e);}
-
-// try {fixTableHeaders();}
-// catch (e) {console.error(e);}
-
-// try{addLogo();}
-// catch{}
-
-
-// try {fixSubMenu();}
-// catch (e) {console.error(e);}
-
-// try {buildSidenav();}
-// catch (e) {console.error(e);}
-
-// try {buildBreadcrumbs();}
-// catch (e) {console.error(e);}
-
-// try {generateTOC();}
-// catch (e) {console.error(e);}
-
-// try {addExternalLinks(EXTERNAL_LINKS);}
-// catch (e) {console.error(e);}
+$try(addOpenGraphMeta);

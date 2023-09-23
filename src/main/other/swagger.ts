@@ -9,10 +9,10 @@ const opts: SwaggerUIOptions = {
 /**
  * Add swagger to the ETAPI page!
  */
-export default function injectSwagger() {
+export default function injectSwagger(expectedNoteId: string) {
     // Check if it's the ETAPI page, otherwise avoid dependency
     const noteId = document.body.dataset.noteId;
-    if (noteId !== "pPIXi0uwF5GX") return; // TODO: make this a param
+    if (noteId !== expectedNoteId) return; // TODO: make this a param
     const main = document.getElementById("main")!;
     main.innerHTML = "";
     opts.domNode = main;

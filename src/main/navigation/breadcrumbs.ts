@@ -47,5 +47,7 @@ export default function buildBreadcrumbsFromNav() {
     // Add breadcrumb container to the main layout
     const main = document.getElementById("main");
     main?.prepend(container);
+
+    // Scroll to the active breadcrumb in case of overflow
     container.scrollLeft = container.scrollWidth - container.clientWidth;
 }

@@ -1,20 +1,3 @@
-const submenuBlacklist = ["ZapIU17QNEyU"];
-// if (item.innerHTML.includes(submenuBlacklist[0])) item.className += " hidden";
-/* function fixSubMenu() {
-    const items = document.querySelectorAll("#menu > ul > li");
-    for (const item of items) {
-        const sublist = item.querySelector("ul");
-        if (sublist) {
-            if (sublist.children.length) {
-                item.className = "submenu";
-            }
-            else {
-                sublist.remove();
-            }
-        }
-    }
-} */
-
 /**
  * General premise here is to find all submenus/sublists
  * and give them a submenu class. Then any list item 
@@ -22,7 +5,7 @@ const submenuBlacklist = ["ZapIU17QNEyU"];
  * class. Additionally, any sublist that itself has a 
  * sublist is given the class hasSubmenu.
  */
-export default function fixSubMenu() {
+export default function fixSubMenu(submenuBlacklist: string[]) {
     // Get every list item in the navigation
     const items = document.querySelectorAll("#menu ul li");
     for (const item of items) {

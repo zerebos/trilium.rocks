@@ -1,9 +1,9 @@
 #breadcrumbs {
-    margin-bottom: 30px;
+    margin: 0 0 30px 0;
     display: flex;
     align-items: center;
     list-style: none;
-    padding: 0;
+    padding: 16px 0 0 0;
     overflow-x: auto;
 }
 
@@ -22,6 +22,7 @@
 }
 
 #breadcrumbs img {
+    width: 18px;
     min-width: 18px;
     filter: invert(100%);
 }

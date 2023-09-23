@@ -26,9 +26,11 @@ const highlightJQuery: HLJSPlugin = {
 
 /**
  * Let's highlight some codeblocks!
- * TODO: check if there are codeblocks on the page before performing this action
  */
 export default function addHljs() {
+    const codeblocks = document.querySelectorAll(`.ck-content pre`);
+    if (!codeblocks.length) return; // If there are none, don't add dependency
+
     // Add the hightlight.js styles from the child note of this script
     // TODO: make this a mapping
     const link = document.createElement("link");
