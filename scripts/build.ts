@@ -73,9 +73,7 @@ async function runBuild() {
         bundle: true,
         outdir: path.join(rootDir, "dist"),
         format: "cjs",
-        external: ["fs", "path", "electron", "@electron/remote"],
-        banner: {js: "const require = mod => {try{return window.require(mod);}catch{return {};}};"},
-        target: ["chrome96", "node16"],
+        target: ["chrome96"],
         loader: {
             ".png": "dataurl",
             ".gif": "dataurl",

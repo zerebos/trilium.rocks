@@ -1,0 +1,85 @@
+#main .swagger-ui .scheme-container {
+    background: #20212B;
+}
+
+#main .swagger-ui .opblock .opblock-section-header {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#main .swagger-ui .opblock-body pre.microlight {
+    background: #20212B!important;
+}
+
+#main .swagger-ui,
+#main .swagger-ui .info li,
+#main .swagger-ui .info p,
+#main .swagger-ui .info table,
+#main .swagger-ui .opblock-description-wrapper p,
+#main .swagger-ui .opblock-external-docs-wrapper p,
+#main .swagger-ui .opblock-title_normal p,
+#main .swagger-ui .response-col_status,
+#main .swagger-ui .response-col_links {
+    color: var(--text-primary);
+}
+
+#main .swagger-ui .btn,
+#main .swagger-ui .model,
+#main .swagger-ui .tab li,
+#main .swagger-ui table thead tr td,
+#main .swagger-ui table thead tr th,
+#main .swagger-ui .parameter__type,
+#main .swagger-ui .parameter__name,
+#main .swagger-ui thead tr td.col_header,
+#main .swagger-ui .model-title {
+    color: var(--text-heading);
+}
+
+#main .swagger-ui .model .property.primitive {
+    color: var(--text-muted);
+}
+
+#main .swagger-ui .prop-type {
+    color: var(--accent-color);
+}
+
+#main .swagger-ui svg {
+    fill: var(--text-heading);
+}
+
+
+#main .swagger-ui .model-toggle::after {
+    filter: invert(100%);
+}
+
+#main .swagger-ui .btn {
+    border: 2px solid var(--text-heading);
+    transition: transform 200ms ease;
+}
+
+#main .swagger-ui .btn:hover {
+    transform: translateY(-5px);
+}
+
+#main .swagger-ui input[disabled],
+#main .swagger-ui select[disabled],
+#main .swagger-ui textarea[disabled],
+#main .swagger-ui select {
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--text-primary);
+    border: 2px solid rgba(0,0,0,0.3);
+    appearance: auto;
+}
+
+
+#main .models > h4 {
+    margin: 5px 10px;
+}
+
+
+#main .swagger-ui .opblock-summary-control {
+    margin-right: 10px;
+}
+
+#main .swagger-ui .authorization__btn {
+    padding-left: 0;
+}

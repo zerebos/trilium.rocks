@@ -1,3 +1,5 @@
+@import "./swagger.css";
+
 * {box-sizing: border-box;}
 
 :root {
@@ -8,6 +10,7 @@
     --ck-color-table-caption-text: gray;
     --bg-primary: #1E1E1E;
     --bg-secondary: #3C3C3C;
+    --text-muted: #777;
     --text-primary: #ddd;
     --text-heading: #fff;
     
@@ -20,6 +23,7 @@
     --container-width: 1400px /*calc(100% - 10%)*/;
     --pane-size: 20%;
     scroll-padding-top: calc(72px + 1rem);
+    color-scheme: dark;
 }
 
 body {

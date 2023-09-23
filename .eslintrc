@@ -2,25 +2,20 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended-type-checked",
-        "plugin:@typescript-eslint/stylistic-type-checked",
-        "plugin:solid/typescript"
+        "plugin:@typescript-eslint/stylistic-type-checked"
     ],
     "env": {
-        "node": true,
         "es2020": true,
-        "browser": true,
-        "jquery": true
+        "browser": true
     },
-    "plugins": ["@typescript-eslint", "solid"],
+    "plugins": ["@typescript-eslint"],
     "parser": "@typescript-eslint/parser",
+    "ignorePatterns": ["legacy/", "dist/"],
     "parserOptions": {
         "project": ["./tsconfig.eslint.json"],
         "tsconfigRootDir": ".",
         "ecmaVersion": 2022,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": true
-        }
+        "sourceType": "module"
     },
     "rules": {
         "accessor-pairs": "error",
@@ -92,9 +87,5 @@
         "wrap-iife": ["error", "inside"],
         "yield-star-spacing": "error",
         "yoda": "error"
-    },
-    "globals": {
-        "api": "readonly",
-        "NodeJS": "readonly"
     }
 }

@@ -7,12 +7,14 @@
     "build": "esrun scripts/build.ts",
     "build-main": "esrun scripts/build.ts -- --module=main",
     "build-styles": "esrun scripts/build.ts -- --module=styles",
+    "dist": "esrun scripts/build.ts -- --minify",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@digitak/esrun": "^3.2.24",
+    "@types/swagger-ui": "^3.52.0",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "@typescript-eslint/parser": "^6.7.2",
     "dotenv": "^16.3.1",
