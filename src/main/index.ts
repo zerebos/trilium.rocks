@@ -8,13 +8,13 @@ import generateTOC from "./navigation/toc";
 import addExternalLinks from "./fixes/externallinks";
 import injectSwagger from "./other/swagger";
 import makeMobileMenu from "./other/mobile";
-import addOpenGraphMeta from "./other/opengraph";
 
 
 const ETAPI_REF_NOTE_ID = "pPIXi0uwF5GX";
 const HIDDEN_SUBMENUS = ["blog"];
 const EXTERNAL_LINKS = {
     EGFtX8Uw96FQ: "https://github.com/zadam/trilium",
+    dXAKFE0fJtom: "https://discord.gg/eTaTXUgcBr"
 };
 const ALIASES = {
     WqBnya4Ye8rS: "",
@@ -58,4 +58,16 @@ $try(generateTOC);
 $try(highlight);
 $try(injectSwagger, ETAPI_REF_NOTE_ID);
 $try(makeMobileMenu);
-$try(addOpenGraphMeta);
+
+/**
+ * This was removed because both the title change and the opengraph
+ * additions are now handled by a traefik plugin that rewrites
+ * the body of the http request, that way the change does not
+ * require client-side JS. This is important for sites wishing
+ * to display that information.
+ * 
+ * TODO: Determine how reasonable it would be to move more
+ * of these modules over to a traefik rewrite plugin. This gives
+ * a better experience to end users, SEO, etc.
+ */
+// $try(addOpenGraphMeta);

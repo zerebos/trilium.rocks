@@ -14,6 +14,15 @@ const buildItem = (heading: Element) => {
     const link = document.createElement("a");
     link.setAttribute("href", `#${slug}`);
     link.textContent = heading.textContent;
+    link.addEventListener("click", e => {
+        const target = document.querySelector(`#${slug}`);
+        if (!target) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+        
+        target.scrollIntoView({behavior: "smooth"});
+    });
 
     heading.append(anchor);
 

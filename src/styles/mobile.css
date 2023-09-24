@@ -145,4 +145,13 @@ button.expand {
     #menu > ul:not(#sidebar) ul {
         margin-left: 20px;
     }
+
+    #menu > ul:not(#sidebar) ul {
+        margin-left: 20px;
+    }
+
+    #menu > ul:not(#sidebar) a.active {
+        background: var(--accent-color);
+        border-radius: 6px;
+    }
 }

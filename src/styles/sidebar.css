@@ -56,3 +56,11 @@
 #sidebar > li > ul > li.submenu-item + li.submenu-item {
     margin-top: 20px;
 }
+
+#sidebar a.active,
+#sidebar > li > ul > li.submenu-item > p > a.active {
+    background: var(--accent-color);
+    /* background: rgba(255, 255, 255, 0.1); */
+    color: var(--text-heading);
+    font-weight: 700;
+}
