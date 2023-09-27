@@ -18,6 +18,25 @@ const rootDir = path.dirname(process.env.npm_package_json!);
 dotenv.config();
 if (process.env.TRILIUM_ETAPI_TOKEN) tepi.token(process.env.TRILIUM_ETAPI_TOKEN);
 
+
+const templateMap: Record<string, string> = {
+    "src/templates/page.ejs": process.env.PAGE_TEMPLATE_ID!,
+    "src/templates/tree_item.ejs": process.env.ITEM_TEMPLATE_ID!,
+};
+
+async function sendTemplates() {
+    for (const template in templateMap) {
+        const templatePath = path.join(rootDir, template);
+        const contents = fs.readFileSync(templatePath).toString();
+        await tepi.putNoteContentById(templateMap[template], contents);
+    }
+}
+
+if (process.argv.includes("--only-templates")) {
+    sendTemplates().catch(console.error);
+    process.exit(0);
+}
+
 const bundleMap = {
     "scripts.js": process.env.JS_NOTE_ID,
     "styles.css": process.env.CSS_NOTE_ID
@@ -53,7 +72,7 @@ const triliumPlugin: esbuild.Plugin = {
 };
 
 
-const modules = ["main", "styles"];
+const modules = ["scripts", "styles"];
 const entryPoints: {in: string, out: string}[] = [];
 const makeEntry = (mod: string) => ({"in": path.join(rootDir, "src", mod, mod === "styles" ? "index.css" : "index.ts"), "out": mod});
 
@@ -89,6 +108,7 @@ async function runBuild() {
         minify: process.argv.includes("--minify")
     });
     const after = performance.now();
+    if (process.argv.includes("--templates")) await sendTemplates();
     console.log(`Build actually took ${(after - before).toFixed(2)}ms`);
 }
 

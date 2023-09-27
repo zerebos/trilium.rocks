@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "esrun scripts/build.ts",
-    "build-main": "esrun scripts/build.ts -- --module=main",
+    "build-all": "esrun scripts/build.ts -- --templates",
+    "build-scripts": "esrun scripts/build.ts -- --module=scripts",
     "build-styles": "esrun scripts/build.ts -- --module=styles",
+    "templates": "esrun scripts/build.ts -- --only-templates",
     "dist": "esrun scripts/build.ts -- --minify",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
