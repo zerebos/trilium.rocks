@@ -19,7 +19,7 @@ dotenv.config();
 if (process.env.TRILIUM_ETAPI_TOKEN) tepi.token(process.env.TRILIUM_ETAPI_TOKEN);
 
 const bundleMap = {
-    "main.js": process.env.JS_NOTE_ID,
+    "scripts.js": process.env.JS_NOTE_ID,
     "styles.css": process.env.CSS_NOTE_ID
 };
 
