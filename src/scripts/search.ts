@@ -14,9 +14,18 @@ interface SearchResult {
     path: string;
 }
 
+function buildResultItem(result: SearchResult) {
+    return `<a class="search-result-item" href="./${result.id}">
+                <div class="search-result-title">${result.title}</div>
+                <div class="search-result-note">${result.path || "Home"}</div>
+            </a>`;
+}
+
 
 export default function setupSearch() {
     const searchInput: HTMLInputElement = document.querySelector(".search-input")!;
+
+    // TODO: move listener to another function
     searchInput.addEventListener("keyup", debounce(async () => {
         // console.log("CHANGE EVENT");
         const current = document.body.dataset.noteId;
@@ -27,7 +36,7 @@ export default function setupSearch() {
         const results = json.results.slice(0, 5);
         const lines = [`<div class="search-results">`];
         for (const result of results) {
-            lines.push(`<a class="search-result-item" href="./${result.id}"><div class="search-result-title">${result.title}</div><div class="search-result-note">${result.path || "Home"}</div></a>`);
+            lines.push(buildResultItem(result));
         }
         lines.push("</div>");
         
@@ -39,7 +48,7 @@ export default function setupSearch() {
         container.style.minWidth = `${rect.width}px`;
         
         const existing = document.querySelector(".search-results");
-        if (existing) existing.replaceWith(container);
+        if (existing) existing.replaceWith(container); // TODO: consider updating existing container and never removing
         else document.body.append(container);
     }, 500));
 

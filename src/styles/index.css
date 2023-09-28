@@ -86,9 +86,25 @@ a:hover {
 }
 
 
-
+.ck-content code,
 .ck-content pre {
     color: var(--text-primary);
+    background-color: var(--background-secondary);
+    border: 1px solid var(--background-active);
+    border-radius: 6px;
+    white-space: pre;
+}
+
+.ck-content code {
+    padding: 2px 5px;
+}
+
+.ck-content pre code {
+    border: 0;
+}
+
+.ck-content pre {
+    overflow: auto;
 }
 
 #content h1,
