@@ -1,17 +1,17 @@
 // import fixActiveLink from "./fixes/activelink";
 // import fixTableHeaders from "./fixes/tableheaders";
-import highlight from "./other/highlight";
+import highlight from "./modules/highlight";
 // import buildSidenav from "./navigation/sidenav";
 // import buildBreadcrumbs from "./navigation/breadcrumbs";
 // import fixSubMenus from "./fixes/submenu";
-import generateTOC from "./navigation/toc";
+import setupToC from "./modules/toc";
 // import addExternalLinks from "./fixes/externallinks";
 // import injectSwagger from "./other/swagger";
 // import makeMobileMenu from "./other/mobile";
-import setupExpanders from "./expanders";
-import setupMobileMenu from "./mobile";
-import setupSearch from "./search";
-import setupThemeSelector from "./theme";
+import setupExpanders from "./modules/expanders";
+import setupMobileMenu from "./modules/mobile";
+import setupSearch from "./modules/search";
+import setupThemeSelector from "./modules/theme";
 
 
 // const ETAPI_REF_NOTE_ID = "pPIXi0uwF5GX";
@@ -56,7 +56,7 @@ function $try<T extends (...a: unknown[]) => unknown>(func: T, ...args: Paramete
 // Now layout changes
 // $try(buildBreadcrumbs);
 // $try(buildSidenav);
-$try(generateTOC);
+$try(setupToC);
 
 // Finally, other features
 $try(highlight);

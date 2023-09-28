@@ -1,4 +1,4 @@
-import parents from "./common/parents";
+import parents from "../common/parents";
 
 
 export default function setupMobileMenu() {

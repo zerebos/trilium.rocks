@@ -1,6 +1,6 @@
-import debounce from "./common/debounce";
-import parents from "./common/parents";
-import parseHTML from "./common/parsehtml";
+import debounce from "../common/debounce";
+import parents from "../common/parents";
+import parseHTML from "../common/parsehtml";
 
 
 interface SearchResults {

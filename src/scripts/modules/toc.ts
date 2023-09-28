@@ -39,7 +39,7 @@ const buildItem = (heading: Element) => {
  * h2 > h4 > h1 but rather h2 > h3 > h2 so you change by 1 and end
  * up at the same level as before.
  */
-export default function generateTOC() {
+export default function setupToC() {
     // Get all headings from the page and map them to already built elements
     const headings = Array.from(document.querySelectorAll("h1, h2, h3, h4, h5, h6"));
     if (headings.length <= 1) return; // But if there are none, let's do nothing
