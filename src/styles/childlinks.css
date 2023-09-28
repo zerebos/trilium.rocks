@@ -1,0 +1,53 @@
+#childLinks,
+#childLinks ul,
+#childLinks li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+#childLinks {
+    padding-top: 10px;
+    flex-direction: column;
+    gap: 0px;
+    justify-content: center;
+    border-top: 1px solid var(--background-highlight);
+}
+
+#childLinks ul {
+    padding: 0;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#childLinks li {
+    background: var(--background-highlight);
+    padding: 2px 12px;
+    border-radius: 12px;
+}
+
+
+.no-content + #childLinks {
+    border: 0;
+}
+
+#childLinks.grid li {
+    padding: 0;
+}
+
+#childLinks.grid li a {
+    padding: 50px;
+    border-radius: 12px;
+    background: var(--background-highlight);
+    color: var(--text-primary);
+    transform: translateY(0);
+    transition: transform 200ms ease, background-color 200ms ease, color 200ms ease;
+}
+
+#childLinks.grid li a:hover {
+    background: var(--background-active);
+    color: var(--background-secondary);
+    text-decoration: none;
+    transform: translateY(-5px);
+}

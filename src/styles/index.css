@@ -1,291 +1,103 @@
-@import "./breadcrumbs.css";
+@import "./childlinks.css";
 @import "./externallinks.css";
-@import "./navbar.css";
-@import "./sidebar.css";
 @import "./swagger.css";
 @import "./toc.css";
+
+@import "./navbar/index.css";
+@import "./popouts/index.css";
 
 @import "./mobile.css";
 
 
-* {box-sizing: border-box;}
+* {
+    box-sizing: border-box;
+}
 
 :root {
-    --shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
-    --blue: #3E82E5;
-    --blue-strong: #008CBD;
-    --gray: gray;
-    --ck-color-table-caption-text: gray;
-    --bg-primary: #1E1E1E;
-    --bg-secondary: #3C3C3C;
-    --text-muted: #777;
-    --text-primary: #ddd;
-    --text-heading: #fff;
-    
-    --bottom-layer: #040405;
-    --middle-layer: #0C0D10;
-    --top-layer: #14151B;
-    --accent-layer: #20212B;
-    --accent-color: #3E82E5;
-    
-    --container-width: 1400px /*calc(100% - 10%)*/;
-    --pane-size: 20%;
+    --background-primary: #333333;
+    --background-secondary: #1F1F1F;
+    --background-highlight: #484848;
+    --background-active: #777777;
+    --text-primary: #cccccc;
+    --text-heading: #cccccc;
+    --text-menu: #AAAAAA;
+    --text-link: #87CEFA;
+    --text-menu-active: #000000;
+}
 
-    
-    scroll-padding-top: calc(72px + 1rem);
-    color-scheme: dark;
+body.theme-light {
+    --background-primary: #FFFFFF;
+    --background-secondary: #F3F3F3;
+    --background-highlight: #DDDDDD;
+    --background-active: #777777;
+    --text-primary: #000000;
+    --text-heading: #000000;
+    --text-menu: #333333;
+    --text-link: #0000ff;
 }
 
 body {
-    margin: 0px;
-    padding: 0px;
-    background: var(--middle-layer);
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background-primary);
+    font-family: 'Montserrat', 'Lucida Grande', 'Lucida Sans Unicode', arial, sans-serif;
+    line-height: 1.5;
     color: var(--text-primary);
-    margin-bottom: 200px;
 }
 
 a {
+    color: var(--text-link);
     text-decoration: none;
-    color:  var(--text-primary);
-    transition: color 200ms ease;
 }
 
 a:hover {
-    color: var(--accent-color);
+    text-decoration: underline;
 }
 
-
-
-
-#content {
-    font-size: 16px;
-    font-weight: 400;
-    -webkit-font-smoothing: subpixel-antialiased;
-    line-height: 1.5;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    hyphens: auto;
-    letter-spacing: 0.02em;
-}
-
-#main h1,
-#main h2,
-#main h3,
-#main h4,
-#main h5,
-#main h6 {
-    color: var(--text-heading);
-    line-height: 36px;
-    padding: 5px 0px;
-    letter-spacing: 0.02em;
-    font-weight: 800;
-    position: relative;
-}
-
-/*     #content h2::before,
-#content h3::before,
-#content h4::before{
-    content: '#';
-    color: var(--blue);
-    position: absolute;
-    left: -20px;
-} */
-
-#main h1 a,
-#main h2 a,
-#main h3 a,
-#main h4 a,
-#main h5 a,
-#main h6 a {
-    color: var(--blue);
-    margin-left: 10px;
-}
-
-#content h2 {
-    font-size: 24px;
-}
-
-#content h3 {
-    font-size: 20px;
-}
-
-#content h4 {
-    font-size: 16px;
-}
-
-#content p {
-    margin-block-start: 12px;
-    margin-block-end: 12px;
-    text-align: justify;
-    overflow: hidden;
-}
-
-#content hr {
-    height: 1px;
-}
-
-#content blockquote {
-    margin-block-start: 12px;
-    margin-block-end: 24px;
-    margin-inline-start: 32px;
-    margin-inline-end: 32px;
-    padding-block-start: 12px;
-    padding-block-end: 12px;
-    padding-inline-start: 16px;
-    padding-inline-end: 16px;
-    background-color: hsla(0deg, 0%, 0%, 0.054);
-}
-
-#noteClippedFrom {
-    color: var(--gray);
-    margin-bottom: 0.5rem;
-    font-style:italic;
-}
-
-.table {
-    overflow-wrap: anywhere;
-}
-
-.pdf-view {
-    width: 100%;
-    min-height: 40rem;
-}
-
-.type-file > button {
-    display: block;
-    margin: 2rem auto;
-    background-color: var(--blue);
-    border: none;
-    color: white;
-    padding: 1rem 2rem;
-    text-align: center;
-    text-decoration: none;
-    font-size: 1rem;
-    border-radius: 0.25rem;
-    box-shadow: var(--shadow);
-}
-
-.mermaid {
-    text-align: center;
-}
-
-/* Menu */
-
-#toggleMenuButton {
-    display: none;
-}
-
-
-
-
-body {
-    display: flex;
-    justify-content: center;
-}
-
-#layout {
+#split-pane {
     display: flex;
     flex-direction: row;
-    width: var(--container-width);
-    max-width: var(--container-width);
-    margin-top: calc(72px + 1rem);
-    position: relative;
-    height: 100%;
-    gap: 16px;
+    gap: 50px;
 }
 
-@media screen and (max-width: 1500px) {
-    #layout {
-        width: 1300px;
-        max-width: 1300px;
-    }
+#left-pane {
+    display: flex;
+    width: calc((100vw - 900px) / 2);
+    min-width: fit-content;
+    height: calc(100vh);
+    background: var(--background-secondary);
+    border-right: 5px solid var(--background-highlight);
+    justify-content: flex-end;
+    position: sticky;
+    top: 0;
 }
 
-@media screen and (max-width: 1300px) {
-    #layout {
-        width: 1100px;
-        max-width: 1200px;
-    }
-}
-
-
-
-#main {
-    flex: 100%;
-}
-
-#layout.toc #main,
-#sidebar + #main {
-    flex: calc(100% - var(--pane-size));
-}
-
-#layout.toc #sidebar + #main {
-    flex: calc(100% - (2 * var(--pane-size)));
+#right-pane {
+    display: flex;
+    margin: 0 auto;
+    gap: 40px;
+    flex: 1;
+    padding-bottom: 500px;
+    padding-right: 50px;
 }
 
 #main {
-    contain: content;
-    background-color: var(--top-layer);
-    padding: 1rem 3rem 2rem 3rem;
-    box-shadow: 0 2px 10px #00000040;
-    border-radius: 6px;
+    order: 2;
+    max-width: 900px;
+    flex: 1;
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-.ck-content code {
-    background-color: var(--accent-layer);
-    border-radius: 6px;
-    padding: 3px;
-}
 .ck-content pre {
-    background: var(--accent-layer);
-    border-radius: 6px;
-    border: 0;
-    box-shadow: 0 2px 4px #0003;
+    color: var(--text-primary);
 }
 
-
-#childLinks.list {
-    display: none;
-}
-
-
-
-
-
-#parentLink {
-    display: none;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#childLinks.grid ul li a {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-#childLinks.grid ul li a:hover {
-    background: rgba(255, 255, 255, 0.1);
+#content h1,
+#content h2,
+#content h3,
+#content h4,
+#content h5,
+#content h6 {
+    color: var(--text-heading);
+    border-bottom: 1px solid var(--background-highlight);
+    padding-bottom: 5px;
 }

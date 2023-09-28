@@ -1,5 +1,5 @@
 #main .swagger-ui .scheme-container {
-    background: #20212B;
+    background: var(--background-secondary);
 }
 
 #main .swagger-ui .opblock .opblock-section-header {
@@ -7,7 +7,7 @@
 }
 
 #main .swagger-ui .opblock-body pre.microlight {
-    background: #20212B!important;
+    background: var(--background-secondary) !important;
 }
 
 #main .swagger-ui,
@@ -22,6 +22,10 @@
     color: var(--text-primary);
 }
 
+
+#main .swagger-ui .opblock .opblock-summary-operation-id,
+#main .swagger-ui .opblock .opblock-summary-path,
+#main .swagger-ui .opblock .opblock-summary-path__deprecated,
 #main .swagger-ui .btn,
 #main .swagger-ui .model,
 #main .swagger-ui .tab li,
@@ -35,11 +39,11 @@
 }
 
 #main .swagger-ui .model .property.primitive {
-    color: var(--text-muted);
+    color: var(--text-menu);
 }
 
 #main .swagger-ui .prop-type {
-    color: var(--accent-color);
+    color: var(--text-link);
 }
 
 #main .swagger-ui svg {
@@ -82,4 +86,32 @@
 
 #main .swagger-ui .authorization__btn {
     padding-left: 0;
+}
+
+.swagger-ui .info .title small {
+    top: 0;
+    padding: 4px 8px;
+    background: var(--background-highlight);
+}
+
+#main .swagger-ui .info .title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#main .swagger-ui .info .title small pre {
+    color: var(--text-heading);
+    min-width: 0;
+    border: 0;
+    background: none;
+}
+
+#main .swagger-ui .info .title > span {
+    display: flex;
+    align-items: center;
+}
+
+.swagger-ui .info .title small.version-stamp {
+    background: var(--background-highlight);
 }
