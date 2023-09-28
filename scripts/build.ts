@@ -33,7 +33,7 @@ async function sendTemplates() {
 }
 
 if (process.argv.includes("--only-templates")) {
-    sendTemplates().catch(console.error);
+    await sendTemplates();
     process.exit(0);
 }
 

@@ -7,7 +7,7 @@
         "resolveJsonModule": true,
         "strictNullChecks": true,
         "moduleResolution": "Node16",
-        "target": "ES2021",
+        "target": "ES2022",
         "rootDir": "src",
         "outDir": "lib/cjs",
         "module": "Node16"
