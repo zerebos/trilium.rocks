@@ -6,6 +6,7 @@ const buildItem = (heading: Element) => {
     const slug = slugify(heading.textContent ?? "");
 
     const anchor = document.createElement("a");
+    anchor.className = "toc-anchor";
     anchor.setAttribute("href", `#${slug}`);
     anchor.setAttribute("name", slug);
     anchor.setAttribute("id", slug);
@@ -108,8 +109,18 @@ export default function generateTOC() {
     changeLinkState();
     window.addEventListener("scroll", changeLinkState);
 
+    // Create the toc wrapper
+    const pane = document.createElement("div");
+    pane.id = "toc-pane";
+    
+    // Create the header
+    const header = document.createElement("h3");
+    header.textContent = "On This Page";
+    pane.append(header);
+    pane.append(toc);
+
     // Finally, add the ToC to the end of layout. Give the layout a class for adjusting widths.
-    const layout = document.querySelector("#layout");
+    const layout = document.querySelector("#right-pane");
     layout?.classList.add("toc");
-    layout?.append(toc);
+    layout?.append(pane);
 }

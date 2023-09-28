@@ -1,25 +1,29 @@
-import fixActiveLink from "./fixes/activelink";
-import fixTableHeaders from "./fixes/tableheaders";
+// import fixActiveLink from "./fixes/activelink";
+// import fixTableHeaders from "./fixes/tableheaders";
 import highlight from "./other/highlight";
-import buildSidenav from "./navigation/sidenav";
-import buildBreadcrumbs from "./navigation/breadcrumbs";
-import fixSubMenus from "./fixes/submenu";
+// import buildSidenav from "./navigation/sidenav";
+// import buildBreadcrumbs from "./navigation/breadcrumbs";
+// import fixSubMenus from "./fixes/submenu";
 import generateTOC from "./navigation/toc";
-import addExternalLinks from "./fixes/externallinks";
-import injectSwagger from "./other/swagger";
-import makeMobileMenu from "./other/mobile";
+// import addExternalLinks from "./fixes/externallinks";
+// import injectSwagger from "./other/swagger";
+// import makeMobileMenu from "./other/mobile";
+import setupExpanders from "./expanders";
+import setupMobileMenu from "./mobile";
+import setupSearch from "./search";
+import setupThemeSelector from "./theme";
 
 
-const ETAPI_REF_NOTE_ID = "pPIXi0uwF5GX";
-const HIDDEN_SUBMENUS = ["blog"];
-const EXTERNAL_LINKS = {
-    EGFtX8Uw96FQ: "https://github.com/zadam/trilium",
-    dXAKFE0fJtom: "https://discord.gg/eTaTXUgcBr"
-};
-const ALIASES = {
-    WqBnya4Ye8rS: "",
-    ZapIU17QNEyU: "blog"
-};
+// const ETAPI_REF_NOTE_ID = "pPIXi0uwF5GX";
+// const HIDDEN_SUBMENUS = ["blog"];
+// const EXTERNAL_LINKS = {
+//     EGFtX8Uw96FQ: "https://github.com/zadam/trilium",
+//     dXAKFE0fJtom: "https://discord.gg/eTaTXUgcBr"
+// };
+// const ALIASES = {
+//     WqBnya4Ye8rS: "",
+//     ZapIU17QNEyU: "blog"
+// };
 
 function $try<T extends (...a: unknown[]) => unknown>(func: T, ...args: Parameters<T>) {
     try {
@@ -44,20 +48,25 @@ function $try<T extends (...a: unknown[]) => unknown>(func: T, ...args: Paramete
  */
 
 // Perform fixes first
-$try(fixActiveLink, ALIASES);
-$try(fixTableHeaders);
-$try(fixSubMenus, HIDDEN_SUBMENUS);
-$try(addExternalLinks, EXTERNAL_LINKS);
+// $try(fixActiveLink, ALIASES);
+// $try(fixTableHeaders);
+// $try(fixSubMenus, HIDDEN_SUBMENUS);
+// $try(addExternalLinks, EXTERNAL_LINKS);
 
 // Now layout changes
-$try(buildBreadcrumbs);
-$try(buildSidenav);
+// $try(buildBreadcrumbs);
+// $try(buildSidenav);
 $try(generateTOC);
 
 // Finally, other features
 $try(highlight);
-$try(injectSwagger, ETAPI_REF_NOTE_ID);
-$try(makeMobileMenu);
+// $try(injectSwagger, ETAPI_REF_NOTE_ID);
+
+$try(setupExpanders);
+$try(setupMobileMenu);
+$try(setupSearch);
+$try(setupThemeSelector);
+// $try(makeMobileMenu);
 
 /**
  * This was removed because both the title change and the opengraph
