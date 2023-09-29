@@ -10,7 +10,7 @@
     "build-styles": "esrun scripts/build.ts -- --module=styles",
     "templates": "esrun scripts/build.ts -- --only-templates",
     "dist": "esrun scripts/build.ts -- --minify",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "esrun src/scripts/test.ts"
   },
   "author": "",
   "license": "ISC",

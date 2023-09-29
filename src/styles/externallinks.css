@@ -4,7 +4,7 @@ a[href^="https://"] {
     gap: 6px;
 }
 
-#main a[href^="https://"] {
+#content a[href^="https://"] {
     padding-right: 6px;
 }
 

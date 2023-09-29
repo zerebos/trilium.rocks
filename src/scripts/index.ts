@@ -57,8 +57,6 @@ function $try<T extends (...a: unknown[]) => unknown>(func: T, ...args: Paramete
 // $try(buildBreadcrumbs);
 // $try(buildSidenav);
 
-// TODO: Determine the difficulty of adding this in
-// trilium directly using JSDOM.
 $try(setupToC);
 
 // Finally, other features

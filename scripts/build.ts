@@ -20,13 +20,14 @@ if (process.env.TRILIUM_ETAPI_TOKEN) tepi.token(process.env.TRILIUM_ETAPI_TOKEN)
 
 
 const templateMap: Record<string, string> = {
-    "src/templates/page.ejs": process.env.PAGE_TEMPLATE_ID!,
-    "src/templates/tree_item.ejs": process.env.ITEM_TEMPLATE_ID!,
+    page: process.env.PAGE_TEMPLATE_ID!,
+    tree_item: process.env.ITEM_TEMPLATE_ID!,
+    toc_item: process.env.TOC_TEMPLATE_ID!,
 };
 
 async function sendTemplates() {
     for (const template in templateMap) {
-        const templatePath = path.join(rootDir, template);
+        const templatePath = path.join(rootDir, "src", "templates", `${template}.ejs`);
         const contents = fs.readFileSync(templatePath).toString();
         await tepi.putNoteContentById(templateMap[template], contents);
     }

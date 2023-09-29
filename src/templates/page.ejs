@@ -87,6 +87,13 @@ const customServerYml = `- url: "{protocol}://{domain}:{port}/etapi"
 <%
 const currentTheme = note.getLabel("shareTheme") === "light" ? "light" : "dark";
 const themeClass = currentTheme === "light" ? " theme-light" : " theme-dark";
+const headingRe = /(<h[1-6]>)(.+?)(<\/h[1-6]>)/g;
+const headingMatches = [...content.matchAll(headingRe)];
+const slugify = (text) => text.toLowerCase().replace(/[^\w]/g, "-");
+content = content.replaceAll(headingRe, (...match) => {
+    match[0] = match[0].replace(match[3], `<a id="${slugify(match[2])}" class="toc-anchor" name="${slugify(match[2])}" href="#${slugify(match[2])}">#</a>${match[3]}`);
+    return match[0];
+});
 %>
 <body data-note-id="<%= note.noteId %>" class="type-<%= note.type %><%= themeClass %>">
 <div id="mobile-header">
@@ -151,16 +158,56 @@ const themeClass = currentTheme === "light" ? " theme-light" : " theme-dark";
                         <%
                         const action = note.type === "book" ? "getChildNotes" : "getVisibleChildNotes";
                         for (const childNote of note[action]()) {
+                            const isExternalLink = childNote.hasLabel("shareExternal");
+                            const linkHref = isExternalLink ? childNote.getLabelValue("shareExternal") : `./${childNote.shareId}`;
+                            const target = isExternalLink ? ` target="_blank" rel="noopener noreferrer"` : "";
                         %>
                             <li>
-                                <a href="<%= childNote.shareId %>"
-                                class="type-<%= childNote.type %>"><%= childNote.title %></a>
+                                <a class="type-<%= childNote.type %>" href="<%= linkHref %>"<%= target %>><%= childNote.title %></a>
                             </li>
                         <% } %>
                     </ul>
                 </nav>
-            <% } else %>
+            <% } %>
         </div>
+        <%
+        if (headingMatches.length > 1) {
+            const level = (m) => parseInt(m[1].replace(/[<h>]+/g, ""));
+
+            const toc = [
+                {
+                    level: level(headingMatches[0]),
+                    name: headingMatches[0][2],
+                    children: []
+                }
+            ];
+            const last = (arr = toc) => arr[arr.length - 1];
+            const makeEntry = (m) => ({level: level(m), name: m[2], children: []});
+            const getLevelArr = (lvl, arr = toc) => {
+                if (arr[0].level === lvl) return arr;
+                const top = last(arr);
+                return top.children.length ? getLevelArr(lvl, top.children) : top.children;
+            };
+            
+            
+            for (let m = 1; m < headingMatches.length; m++) {
+                const target = getLevelArr(level(headingMatches[m]));
+                target.push(makeEntry(headingMatches[m]));
+            }
+        %>
+            <div id="toc-pane">
+                <h3>On This Page</h3>
+                <ul id="toc">
+                    <%
+                    let active = true;
+                    for (const entry of toc) {
+                    %>
+                        <%- include('toc_item', {entry, active}) %>
+                        <% active = false %>
+                    <% } %>
+                </ul>
+            </div>
+        <% } %>
     </div>
 </div>
 </body>
