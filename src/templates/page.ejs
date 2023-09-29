@@ -18,13 +18,35 @@
         <!--<link href="../<%= assetPath %>/stylesheets/share.css" rel="stylesheet">-->
     <% } %>
     <% if (note.hasLabel("shareSwagger")) { %>
-        <link href="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css" rel="stylesheet">
-        <script src="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js"></script>
+        <link href="api/notes/woA8jsLWd4QR/download" rel="stylesheet">
+        <script src="api/notes/RYOdL9flwQfP/download"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function() {
+const customServerYml = `- url: "{protocol}://{domain}:{port}/etapi"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+        description: Protocol your server is being hosted with
+      domain:
+        default: localhost
+        description: Domain name or localhost or ip
+      port:
+        default: 37840
+        description: Port the app is served over`;
+
                 SwaggerUIBundle({
+                    // url: `api/notes/<%= note.noteId %>/download`,
                     url: `<%= note.getLabelValue("shareSwagger") %>`,
-                    dom_id: "#content"
+                    dom_id: "#content",
+                    responseInterceptor: resp => {
+                        if (resp.url !== `<%= note.getLabelValue("shareSwagger") %>`) return resp;
+                        resp.text = resp.text.replace("37740", "37840");
+                        resp.text = resp.text.replace(`- url: http://localhost:8080/etapi`, customServerYml);
+                        return resp;
+                    }
                 });
             });
         </script>
@@ -43,6 +65,7 @@
     <% } %>
     <%- header %>
     <title><%= note.title %><% if (note.noteId !== subRoot.noteId) { %> - <%= subRoot.title %><% } %></title>
+    <!-- TODO: determine a good way to populate this via labels -->
     <!-- HTML Meta Tags -->
     <meta name="description" content="A website for guides, reference, showcase, inspiration, and more, all for Trilium Notes! Not convinced? Come see for yourself just what Trilium can do."
     ><!-- Facebook Meta Tags -->
@@ -107,40 +130,37 @@ const themeClass = currentTheme === "light" ? " theme-light" : " theme-dark";
         </div>
     </div>
     <div id="right-pane">
-    <div id="main">
-       
+        <div id="main">
 
-        <% if (note.hasLabel("pageUrl")) { %>
-            <div id="noteClippedFrom">This note was originally clipped from <a href="<%= note.getLabelValue("pageUrl") %>"><%= note.getLabelValue("pageUrl") %></a></div>
-        <% } %>
-
-
-        <div id="content" class="type-<%= note.type %><% if (note.type === 'text') { %> ck-content<% } %><% if (isEmpty) { %> no-content<% } %>">
-                <h1 id="title"><%= note.title %></h1>
-            <% if (isEmpty && !note.hasVisibleChildren()) { %>
-                <p>This note has no content.</p>
-            <% } else { %>
-                <%- content %>
-            <% } %>
-        </div>
-
-        <% if (note.hasVisibleChildren()) { %>
-            <nav id="childLinks" class="<% if (isEmpty) { %>grid<% } else { %>list<% } %>">
-                <% if (!isEmpty) { %>
-                    <span>Subpages:</span>
+            <div id="content" class="type-<%= note.type %><% if (note.type === 'text') { %> ck-content<% } %><% if (isEmpty) { %> no-content<% } %>">
+                    <h1 id="title"><%= note.title %></h1>
+                <% if (isEmpty && (!note.hasVisibleChildren() && note.type !== "book")) { %>
+                    <p>This note has no content.</p>
+                <% } else { %>
+                    <%- content %>
                 <% } %>
+            </div>
 
-                <ul>
-                    <% for (const childNote of note.getVisibleChildNotes()) { %>
-                        <li>
-                            <a href="<%= childNote.shareId %>"
-                               class="type-<%= childNote.type %>"><%= childNote.title %></a>
-                        </li>
+            <% if (note.hasVisibleChildren() || note.type === "book") { %>
+                <nav id="childLinks" class="<% if (isEmpty) { %>grid<% } else { %>list<% } %>">
+                    <% if (!isEmpty) { %>
+                        <span>Subpages:</span>
                     <% } %>
-                </ul>
-            </nav>
-        <% } else %>
-    </div>
+
+                    <ul>
+                        <%
+                        const action = note.type === "book" ? "getChildNotes" : "getVisibleChildNotes";
+                        for (const childNote of note[action]()) {
+                        %>
+                            <li>
+                                <a href="<%= childNote.shareId %>"
+                                class="type-<%= childNote.type %>"><%= childNote.title %></a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </nav>
+            <% } else %>
+        </div>
     </div>
 </div>
 </body>

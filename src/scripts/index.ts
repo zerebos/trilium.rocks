@@ -56,12 +56,19 @@ function $try<T extends (...a: unknown[]) => unknown>(func: T, ...args: Paramete
 // Now layout changes
 // $try(buildBreadcrumbs);
 // $try(buildSidenav);
+
+// TODO: Determine the difficulty of adding this in
+// trilium directly using JSDOM.
 $try(setupToC);
 
 // Finally, other features
+// TODO: how difficult this would be to implement via
+// templates or trilium
 $try(highlight);
 // $try(injectSwagger, ETAPI_REF_NOTE_ID);
 
+// "Standard" Modules I would recommend the new share
+// theme have
 $try(setupExpanders);
 $try(setupMobileMenu);
 $try(setupSearch);
@@ -69,14 +76,10 @@ $try(setupThemeSelector);
 // $try(makeMobileMenu);
 
 /**
- * This was removed because both the title change and the opengraph
- * additions are now handled by a traefik plugin that rewrites
- * the body of the http request, that way the change does not
- * require client-side JS. This is important for sites wishing
- * to display that information.
+ * This no longer uses a traefik plugin and instead a custom
+ * template being served through Trilium.
  * 
- * TODO: Determine how reasonable it would be to move more
- * of these modules over to a traefik rewrite plugin. This gives
- * a better experience to end users, SEO, etc.
+ * TODO: Figure out some good attributes to use to populate
+ * this inside the template to make it more dynamic
  */
 // $try(addOpenGraphMeta);
