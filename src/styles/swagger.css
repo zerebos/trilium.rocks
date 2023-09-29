@@ -6,6 +6,11 @@
     background: rgba(0, 0, 0, 0.2);
 }
 
+#main .swagger-ui section.models {
+    border: 1px solid var(--background-highlight);
+}
+
+#main .swagger-ui section.models .model-container,
 #main .swagger-ui .opblock-body pre.microlight {
     background: var(--background-secondary) !important;
 }
@@ -114,4 +119,25 @@
 
 .swagger-ui .info .title small.version-stamp {
     background: var(--background-highlight);
+}
+
+
+#main .swagger-ui h1,
+#main .swagger-ui h2,
+#main .swagger-ui h3,
+#main .swagger-ui h4,
+#main .swagger-ui h5,
+#main .swagger-ui h6 {
+    border: 0;
+}
+
+
+#main .swagger-ui input[type="email"],
+#main .swagger-ui input[type="file"],
+#main .swagger-ui input[type="password"],
+#main .swagger-ui input[type="search"],
+#main .swagger-ui input[type="text"],
+#main .swagger-ui textarea {
+    background-color: var(--background-highlight);
+    border: 0;
 }

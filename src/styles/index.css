@@ -6,6 +6,9 @@
 @import "./navbar/index.css";
 @import "./popouts/index.css";
 
+@import "./layout.css";
+@import "./content.css";
+
 @import "./mobile.css";
 
 
@@ -23,6 +26,7 @@
     --text-menu: #AAAAAA;
     --text-link: #87CEFA;
     --text-menu-active: #000000;
+    color-scheme: dark;
 }
 
 body.theme-light {
@@ -34,6 +38,7 @@ body.theme-light {
     --text-heading: #000000;
     --text-menu: #333333;
     --text-link: #0000ff;
+    color-scheme: light;
 }
 
 body {
@@ -52,68 +57,6 @@ a:hover {
     text-decoration: underline;
 }
 
-#split-pane {
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-}
-
-#left-pane {
-    display: flex;
-    width: calc((100vw - 900px) / 2);
-    min-width: fit-content;
-    height: calc(100vh);
-    background: var(--background-secondary);
-    border-right: 5px solid var(--background-highlight);
-    justify-content: flex-end;
-    position: sticky;
-    top: 0;
-}
-
-#right-pane {
-    display: flex;
-    margin: 0 auto;
-    gap: 40px;
-    flex: 1;
-    padding-bottom: 500px;
-    padding-right: 50px;
-}
-
-#main {
-    order: 2;
-    max-width: 900px;
-    flex: 1;
-}
 
 
-.ck-content code,
-.ck-content pre {
-    color: var(--text-primary);
-    background-color: var(--background-secondary);
-    border: 1px solid var(--background-active);
-    border-radius: 6px;
-    white-space: pre;
-}
 
-.ck-content code {
-    padding: 2px 5px;
-}
-
-.ck-content pre code {
-    border: 0;
-}
-
-.ck-content pre {
-    overflow: auto;
-}
-
-#content h1,
-#content h2,
-#content h3,
-#content h4,
-#content h5,
-#content h6 {
-    color: var(--text-heading);
-    border-bottom: 1px solid var(--background-highlight);
-    padding-bottom: 5px;
-}
