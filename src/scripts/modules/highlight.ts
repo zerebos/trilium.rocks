@@ -19,7 +19,6 @@ const highlightJQuery: HLJSPlugin = {
         result.value = result.value.replaceAll(/([^A-Za-z0-9.])\$\((.+)\)/g, function(match, prefix, variable) {
             return `${prefix}<span class="hljs-variable language_">$(</span>${variable}<span class="hljs-variable language_">)</span>`;
         });
-        // TODO: add highlighting for static calls like $.ajax
     }
 };
 
@@ -32,14 +31,12 @@ export default function addHljs() {
     if (!codeblocks.length) return; // If there are none, don't add dependency
 
     // Add the hightlight.js styles from the child note of this script
-    // TODO: make this a mapping
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.href = "api/notes/cVaK9ZJwx5Hs/download";
     document.head.append(link);
 
     // Add the highlight.js script too
-    // TODO: make this a mappin as well
     const script = document.createElement("script");
     script.src = "api/notes/6PVElIem02b5/download";
     script.addEventListener("load", () => {

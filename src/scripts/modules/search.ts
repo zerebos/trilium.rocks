@@ -25,7 +25,6 @@ function buildResultItem(result: SearchResult) {
 export default function setupSearch() {
     const searchInput: HTMLInputElement = document.querySelector(".search-input")!;
 
-    // TODO: move listener to another function
     searchInput.addEventListener("keyup", debounce(async () => {
         // console.log("CHANGE EVENT");
         const current = document.body.dataset.noteId;
@@ -48,7 +47,7 @@ export default function setupSearch() {
         container.style.minWidth = `${rect.width}px`;
         
         const existing = document.querySelector(".search-results");
-        if (existing) existing.replaceWith(container); // TODO: consider updating existing container and never removing
+        if (existing) existing.replaceWith(container);
         else document.body.append(container);
     }, 500));
 

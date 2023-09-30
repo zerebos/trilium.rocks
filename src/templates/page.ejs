@@ -65,7 +65,7 @@ const customServerYml = `- url: "{protocol}://{domain}:{port}/etapi"
     <% } %>
     <%- header %>
     <title><%= note.title %><% if (note.noteId !== subRoot.noteId) { %> - <%= subRoot.title %><% } %></title>
-    <!-- TODO: determine a good way to populate this via labels -->
+
     <!-- HTML Meta Tags -->
     <meta name="description" content="A website for guides, reference, showcase, inspiration, and more, all for Trilium Notes! Not convinced? Come see for yourself just what Trilium can do."
     ><!-- Facebook Meta Tags -->
@@ -97,9 +97,9 @@ content = content.replaceAll(headingRe, (...match) => {
 %>
 <body data-note-id="<%= note.noteId %>" class="type-<%= note.type %><%= themeClass %>">
 <div id="mobile-header">
-    <a href="./<%= subRoot.shareId %>">
+    <a href="./">
         <% if (subRoot.hasRelation("shareLogo")) { %>
-            <img src="api/notes/<%= subRoot.getRelation("shareLogo").value %>/download" alt="Logo" />
+            <img src="api/images/<%= subRoot.getRelation("shareLogo").value %>/logo.svg" alt="Logo" />
         <% } %>
         <%= subRoot.title %>
     </a>
@@ -109,9 +109,9 @@ content = content.replaceAll(headingRe, (...match) => {
     <div id="left-pane">
         <div id="navigation">
             <div id="site-header">
-                <a href="./<%= subRoot.shareId %>">
+                <a href="./">
                     <% if (subRoot.hasRelation("shareLogo")) { %>
-                        <img src="api/notes/<%= subRoot.getRelation("shareLogo").value %>/download" alt="Logo" />
+                        <img src="api/images/<%= subRoot.getRelation("shareLogo").value %>/logo.svg" alt="Logo" />
                     <% } %>
                     <%= subRoot.title %>
                 </a>
@@ -198,12 +198,8 @@ content = content.replaceAll(headingRe, (...match) => {
             <div id="toc-pane">
                 <h3>On This Page</h3>
                 <ul id="toc">
-                    <%
-                    let active = true;
-                    for (const entry of toc) {
-                    %>
-                        <%- include('toc_item', {entry, active}) %>
-                        <% active = false %>
+                    <% for (const entry of toc) { %>
+                        <%- include('toc_item', {entry}) %>
                     <% } %>
                 </ul>
             </div>

@@ -50,7 +50,7 @@
 }
 
 #menu li > ul {
-    transition: height 1000ms ease;
+    transition: height 200ms ease;
 }
 
 #menu li:not(.expanded) > ul {

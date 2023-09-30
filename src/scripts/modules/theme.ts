@@ -12,7 +12,6 @@ if (preference) {
 
 export default function setupThemeSelector() {
     const themeSwitch: HTMLInputElement = document.querySelector(".theme-selection input")!;
-    // TODO: consolidate this with initialization (DRY)
     themeSwitch?.addEventListener("change", () => {
         if (themeSwitch.checked) {
             document.body.classList.add("theme-dark");
