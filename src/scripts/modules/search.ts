@@ -27,10 +27,10 @@ export default function setupSearch() {
 
     searchInput.addEventListener("keyup", debounce(async () => {
         // console.log("CHANGE EVENT");
-        const current = document.body.dataset.noteId;
+        const ancestor = document.body.dataset.ancestorNoteId;
         const query = searchInput.value;
         if (query.length < 3) return;
-        const resp = await fetch(`api/search/${current}?query=${query}`);
+        const resp = await fetch(`api/notes?search=${query}&ancestorNoteId=${ancestor}`);
         const json = await resp.json() as SearchResults;
         const results = json.results.slice(0, 5);
         const lines = [`<div class="search-results">`];

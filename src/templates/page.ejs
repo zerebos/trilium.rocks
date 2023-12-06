@@ -43,7 +43,7 @@ const customServerYml = `- url: "{protocol}://{domain}:{port}/etapi"
                     dom_id: "#content",
                     responseInterceptor: resp => {
                         if (resp.url !== `<%= note.getLabelValue("shareSwagger") %>`) return resp;
-                        resp.text = resp.text.replace("37740", "37840");
+                        resp.text = resp.text.replace("- url: http://localhost:37740/etapi", "- url: http://localhost:37840/etapi");
                         resp.text = resp.text.replace(`- url: http://localhost:8080/etapi`, customServerYml);
                         return resp;
                     }
@@ -64,21 +64,21 @@ const customServerYml = `- url: "{protocol}://{domain}:{port}/etapi"
         <meta name="robots" content="noindex,follow" />
     <% } %>
     <%- header %>
-    <title><%= note.title %><% if (note.noteId !== subRoot.noteId) { %> - <%= subRoot.title %><% } %></title>
+    <title><%= note.title %><% if (note.noteId !== subRoot.note.noteId) { %> - <%= subRoot.note.title %><% } %></title>
 
     <!-- HTML Meta Tags -->
     <meta name="description" content="A website for guides, reference, showcase, inspiration, and more, all for Trilium Notes! Not convinced? Come see for yourself just what Trilium can do."
     ><!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://trilium.rocks/">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="<%= note.title %><% if (note.noteId !== subRoot.noteId) { %> - <%= subRoot.title %><% } %>">
+    <meta property="og:title" content="<%= note.title %><% if (note.noteId !== subRoot.note.noteId) { %> - <%= subRoot.note.title %><% } %>">
     <meta property="og:description" content="<%= note.getLabelValue("shareDescription") %>">
     <meta property="og:image" content="https://github.com/zadam/trilium/wiki/images/screenshot.png">
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="trilium.rocks">
     <meta property="twitter:url" content="https://trilium.rocks/">
-    <meta name="twitter:title" content="<%= note.title %><% if (note.noteId !== subRoot.noteId) { %> - <%= subRoot.title %><% } %>">
+    <meta name="twitter:title" content="<%= note.title %><% if (note.noteId !== subRoot.note.noteId) { %> - <%= subRoot.note.title %><% } %>">
     <meta name="twitter:description" content="<%= note.getLabelValue("shareDescription") %>">
     <meta name="twitter:image" content="https://github.com/zadam/trilium/wiki/images/screenshot.png">
     <!-- Meta Tags Generated via https://opengraph.dev -->
@@ -98,10 +98,10 @@ content = content.replaceAll(headingRe, (...match) => {
 <body data-note-id="<%= note.noteId %>" class="type-<%= note.type %><%= themeClass %>">
 <div id="mobile-header">
     <a href="./">
-        <% if (subRoot.hasRelation("shareLogo")) { %>
-            <img src="api/images/<%= subRoot.getRelation("shareLogo").value %>/logo.svg" alt="Logo" />
+        <% if (subRoot.note.hasRelation("shareLogo")) { %>
+            <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/logo.svg" alt="Logo" />
         <% } %>
-        <%= subRoot.title %>
+        <%= subRoot.note.title %>
     </a>
     <button id="show-menu-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg></button>
 </div>
@@ -110,10 +110,10 @@ content = content.replaceAll(headingRe, (...match) => {
         <div id="navigation">
             <div id="site-header">
                 <a href="./">
-                    <% if (subRoot.hasRelation("shareLogo")) { %>
-                        <img src="api/images/<%= subRoot.getRelation("shareLogo").value %>/logo.svg" alt="Logo" />
+                    <% if (subRoot.note.hasRelation("shareLogo")) { %>
+                        <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/logo.svg" alt="Logo" />
                     <% } %>
-                    <%= subRoot.title %>
+                    <%= subRoot.note.title %>
                 </a>
                 <div class="theme-selection">
                     Site Theme
@@ -129,7 +129,7 @@ content = content.replaceAll(headingRe, (...match) => {
                     <input type="text" class="search-input" placeholder="Search...">
                 </div>
             </div>
-        <% if (subRoot.hasVisibleChildren()) { %>
+        <% if (subRoot.note.hasVisibleChildren()) { %>
             <nav id="menu">
                 <%- include('tree_item', {note: subRoot, activeNote: note, subRoot: subRoot}) %>
             </nav>
