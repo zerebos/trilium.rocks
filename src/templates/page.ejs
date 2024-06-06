@@ -67,8 +67,8 @@ const customServerYml = `- url: "{protocol}://{domain}:{port}/etapi"
     <title><%= note.title %><% if (note.noteId !== subRoot.note.noteId) { %> - <%= subRoot.note.title %><% } %></title>
 
     <!-- HTML Meta Tags -->
-    <meta name="description" content="A website for guides, reference, showcase, inspiration, and more, all for Trilium Notes! Not convinced? Come see for yourself just what Trilium can do."
-    ><!-- Facebook Meta Tags -->
+    <meta name="description" content="A website for guides, reference, showcase, inspiration, and more, all for Trilium Notes! Not convinced? Come see for yourself just what Trilium can do.">
+    <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://trilium.rocks/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="<%= note.title %><% if (note.noteId !== subRoot.note.noteId) { %> - <%= subRoot.note.title %><% } %>">
@@ -95,9 +95,10 @@ content = content.replaceAll(headingRe, (...match) => {
     return match[0];
 });
 %>
-<body data-note-id="<%= note.noteId %>" class="type-<%= note.type %><%= themeClass %>">
+<body data-note-id="<%= note.noteId %>" class="type-<%= note.type %><%= themeClass %>" data-ancestor-note-id="<%= subRoot.note.noteId %>">
 <div id="mobile-header">
-    <a href="./">
+    <!-- TODO: add option to use a clean home with / for fancy routing -->
+    <a href="./<%= subRoot.note.noteId %>">
         <% if (subRoot.note.hasRelation("shareLogo")) { %>
             <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/logo.svg" alt="Logo" />
         <% } %>
@@ -109,7 +110,7 @@ content = content.replaceAll(headingRe, (...match) => {
     <div id="left-pane">
         <div id="navigation">
             <div id="site-header">
-                <a href="./">
+                <a href="./<%= subRoot.note.noteId %>">
                     <% if (subRoot.note.hasRelation("shareLogo")) { %>
                         <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/logo.svg" alt="Logo" />
                     <% } %>
@@ -131,7 +132,7 @@ content = content.replaceAll(headingRe, (...match) => {
             </div>
         <% if (subRoot.note.hasVisibleChildren()) { %>
             <nav id="menu">
-                <%- include('tree_item', {note: subRoot, activeNote: note, subRoot: subRoot}) %>
+                <%- include('tree_item', {note: subRoot.note, activeNote: note, subRoot: subRoot}) %>
             </nav>
         <% } %>   
         </div>
