@@ -87,7 +87,7 @@ const customServerYml = `- url: "{protocol}://{domain}:{port}/etapi"
     <meta name="twitter:description" content="<%= note.getLabelValue("shareDescription") %>">
     <meta name="twitter:image" content="<%= openGraphImage %>">
     <!-- Meta Tags Generated via https://opengraph.dev -->
-    <meta name="theme-color" content="<%= openGraphColor %>>">
+    <meta name="theme-color" content="<%= openGraphColor %>">
 </head>
 <%
 const shareRootLink = subRoot.note.hasLabel("shareRootLink") ? subRoot.note.getLabelValue("shareRootLink") : `./${subRoot.note.noteId}`;
@@ -103,7 +103,7 @@ content = content.replaceAll(headingRe, (...match) => {
 %>
 <body data-note-id="<%= note.noteId %>" class="type-<%= note.type %><%= themeClass %>" data-ancestor-note-id="<%= subRoot.note.noteId %>">
 <div id="mobile-header">
-    <a href="<%= shareRootLink %>>">
+    <a href="<%= shareRootLink %>">
         <% if (subRoot.note.hasRelation("shareLogo")) { %>
             <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/download" alt="Logo" />
         <% } %>
@@ -115,7 +115,7 @@ content = content.replaceAll(headingRe, (...match) => {
     <div id="left-pane">
         <div id="navigation">
             <div id="site-header">
-                <a href="<%= shareRootLink %>>">
+                <a href="<%= shareRootLink %>">
                     <% if (subRoot.note.hasRelation("shareLogo")) { %>
                         <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/download" alt="Logo" />
                     <% } %>
