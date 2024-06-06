@@ -2,22 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <% if (note.hasLabel("shareDescription")) { %>
-        <meta name="description" content="<%= note.getLabelValue("shareDescription") %>">
-    <% } %>
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% if (note.hasRelation("shareFavicon")) { %>
-    <link rel="shortcut icon" href="api/notes/<%= note.getRelation("shareFavicon").value %>/download">
-    <% } else { %>
-    <link rel="shortcut icon" href="../favicon.ico">
-    <% } %>
+
+    <link rel="shortcut icon" href="<% if (note.hasRelation("shareFavicon")) { %>api/notes/<%= note.getRelation("shareFavicon").value %>/download<% } else { %>../favicon.ico<% } %>">
     <script src="../<%= appPath %>/share.js"></script>
-    <% if (!note.hasLabel("shareOmitDefaultCss")) { %>
-        <link href="../<%= assetPath %>/libraries/normalize.min.css" rel="stylesheet">
-        <!--<link href="../<%= assetPath %>/stylesheets/share.css" rel="stylesheet">-->
-    <% } %>
+    <link href="../<%= assetPath %>/libraries/normalize.min.css" rel="stylesheet">
+
     <% if (note.hasLabel("shareSwagger")) { %>
+        <!-- TODO: make these note IDs customizable -->
         <link href="api/notes/woA8jsLWd4QR/download" rel="stylesheet">
         <script src="api/notes/RYOdL9flwQfP/download"></script>
         <script>
@@ -51,7 +43,8 @@ const customServerYml = `- url: "{protocol}://{domain}:{port}/etapi"
             });
         </script>
     <% } %>
-    <% if (note.type === 'text' || note.type === 'book') { %>
+
+    <% if (note.type === "text" || note.type === "book") { %>
         <link href="../<%= assetPath %>/libraries/ckeditor/ckeditor-content.css" rel="stylesheet">
     <% } %>
     <% for (const cssRelation of note.getRelations("shareCss")) { %>
@@ -60,31 +53,44 @@ const customServerYml = `- url: "{protocol}://{domain}:{port}/etapi"
     <% for (const jsRelation of note.getRelations("shareJs")) { %>
         <script type="module" src="api/notes/<%= jsRelation.value %>/download"></script>
     <% } %>
-    <% if (note.hasLabel('shareDisallowRobotIndexing')) { %>
+    <% if (note.hasLabel("shareDisallowRobotIndexing")) { %>
         <meta name="robots" content="noindex,follow" />
     <% } %>
-    <%- header %>
-    <title><%= note.title %><% if (note.noteId !== subRoot.note.noteId) { %> - <%= subRoot.note.title %><% } %></title>
+    
+    <%
+        const pageTitle = `${note.title}${note.noteId !== subRoot.note.noteId ? ` - ${subRoot.note.title}` : ""}`;
 
+        // Setup some key OpenGraph variables
+        const openGraphColor = subRoot.note.getLabelValue("shareOpenGraphColor");
+        const openGraphURL = subRoot.note.getLabelValue("shareOpenGraphURL");
+        const openGraphDomain = subRoot.note.getLabelValue("shareOpenGraphDomain");
+        let openGraphImage = subRoot.note.getLabelValue("shareOpenGraphImage");
+        // Relation takes priority and requires some altering
+        if (subRoot.note.hasRelation("shareOpenGraphImage")) {
+            openGraphImage = `api/images/${subRoot.note.getRelation("shareOpenGraphImage").value}/download`;
+        }
+    %>
+    <title><%= pageTitle %></title>
     <!-- HTML Meta Tags -->
-    <meta name="description" content="A website for guides, reference, showcase, inspiration, and more, all for Trilium Notes! Not convinced? Come see for yourself just what Trilium can do.">
+    <meta name="description" content="<%= note.getLabelValue("shareDescription") %>">
     <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://trilium.rocks/">
+    <meta property="og:url" content="<%= openGraphURL %>">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="<%= note.title %><% if (note.noteId !== subRoot.note.noteId) { %> - <%= subRoot.note.title %><% } %>">
+    <meta property="og:title" content="<%= pageTitle %>">
     <meta property="og:description" content="<%= note.getLabelValue("shareDescription") %>">
-    <meta property="og:image" content="https://github.com/zadam/trilium/wiki/images/screenshot.png">
+    <meta property="og:image" content="<%= openGraphImage %>">
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="trilium.rocks">
-    <meta property="twitter:url" content="https://trilium.rocks/">
-    <meta name="twitter:title" content="<%= note.title %><% if (note.noteId !== subRoot.note.noteId) { %> - <%= subRoot.note.title %><% } %>">
+    <meta property="twitter:domain" content="<%= openGraphDomain %>">
+    <meta property="twitter:url" content="<%= openGraphURL %>">
+    <meta name="twitter:title" content="<%= pageTitle %>">
     <meta name="twitter:description" content="<%= note.getLabelValue("shareDescription") %>">
-    <meta name="twitter:image" content="https://github.com/zadam/trilium/wiki/images/screenshot.png">
+    <meta name="twitter:image" content="<%= openGraphImage %>">
     <!-- Meta Tags Generated via https://opengraph.dev -->
-    <meta name="theme-color" content="#4FA52B">
+    <meta name="theme-color" content="<%= openGraphColor %>>">
 </head>
 <%
+const shareRootLink = subRoot.note.hasLabel("shareRootLink") ? subRoot.note.getLabelValue("shareRootLink") : `./${subRoot.note.noteId}`;
 const currentTheme = note.getLabel("shareTheme") === "light" ? "light" : "dark";
 const themeClass = currentTheme === "light" ? " theme-light" : " theme-dark";
 const headingRe = /(<h[1-6]>)(.+?)(<\/h[1-6]>)/g;
@@ -97,10 +103,9 @@ content = content.replaceAll(headingRe, (...match) => {
 %>
 <body data-note-id="<%= note.noteId %>" class="type-<%= note.type %><%= themeClass %>" data-ancestor-note-id="<%= subRoot.note.noteId %>">
 <div id="mobile-header">
-    <!-- TODO: add option to use a clean home with / for fancy routing -->
-    <a href="./<%= subRoot.note.noteId %>">
+    <a href="<%= shareRootLink %>>">
         <% if (subRoot.note.hasRelation("shareLogo")) { %>
-            <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/logo.svg" alt="Logo" />
+            <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/download" alt="Logo" />
         <% } %>
         <%= subRoot.note.title %>
     </a>
@@ -110,9 +115,9 @@ content = content.replaceAll(headingRe, (...match) => {
     <div id="left-pane">
         <div id="navigation">
             <div id="site-header">
-                <a href="./<%= subRoot.note.noteId %>">
+                <a href="<%= shareRootLink %>>">
                     <% if (subRoot.note.hasRelation("shareLogo")) { %>
-                        <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/logo.svg" alt="Logo" />
+                        <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/download" alt="Logo" />
                     <% } %>
                     <%= subRoot.note.title %>
                 </a>
@@ -132,7 +137,7 @@ content = content.replaceAll(headingRe, (...match) => {
             </div>
         <% if (subRoot.note.hasVisibleChildren()) { %>
             <nav id="menu">
-                <%- include('tree_item', {note: subRoot.note, activeNote: note, subRoot: subRoot}) %>
+                <%- include("tree_item", {note: subRoot.note, activeNote: note, subRoot: subRoot}) %>
             </nav>
         <% } %>   
         </div>
@@ -140,7 +145,7 @@ content = content.replaceAll(headingRe, (...match) => {
     <div id="right-pane">
         <div id="main">
 
-            <div id="content" class="type-<%= note.type %><% if (note.type === 'text') { %> ck-content<% } %><% if (isEmpty) { %> no-content<% } %>">
+            <div id="content" class="type-<%= note.type %><% if (note.type === "text") { %> ck-content<% } %><% if (isEmpty) { %> no-content<% } %>">
                     <h1 id="title"><%= note.title %></h1>
                 <% if (isEmpty && (!note.hasVisibleChildren() && note.type !== "book")) { %>
                     <p>This note has no content.</p>
@@ -159,8 +164,8 @@ content = content.replaceAll(headingRe, (...match) => {
                         <%
                         const action = note.type === "book" ? "getChildNotes" : "getVisibleChildNotes";
                         for (const childNote of note[action]()) {
-                            const isExternalLink = childNote.hasLabel("shareExternal");
-                            const linkHref = isExternalLink ? childNote.getLabelValue("shareExternal") : `./${childNote.shareId}`;
+                            const isExternalLink = childNote.hasLabel("shareExternal") || childNote.hasLabel("shareExternalLink");
+                            const linkHref = isExternalLink ? childNote.getLabelValue("shareExternal") ?? childNote.getLabelValue("shareExternalLink") : `./${childNote.shareId}`;
                             const target = isExternalLink ? ` target="_blank" rel="noopener noreferrer"` : "";
                         %>
                             <li>
@@ -200,7 +205,7 @@ content = content.replaceAll(headingRe, (...match) => {
                 <h3>On This Page</h3>
                 <ul id="toc">
                     <% for (const entry of toc) { %>
-                        <%- include('toc_item', {entry}) %>
+                        <%- include("toc_item", {entry}) %>
                     <% } %>
                 </ul>
             </div>
