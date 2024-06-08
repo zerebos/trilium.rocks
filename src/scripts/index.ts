@@ -14,9 +14,10 @@ function $try<T extends (...a: unknown[]) => unknown>(func: T, ...args: Paramete
         console.error(e); // eslint-disable-line no-console
     }
 }
+
+$try(setupThemeSelector);
 $try(setupToC);
 $try(highlight);
 $try(setupExpanders);
 $try(setupMobileMenu);
 $try(setupSearch);
-$try(setupThemeSelector);

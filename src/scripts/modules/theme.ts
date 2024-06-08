@@ -12,7 +12,14 @@ if (preference) {
 
 export default function setupThemeSelector() {
     const themeSwitch: HTMLInputElement = document.querySelector(".theme-selection input")!;
-    themeSwitch.checked = preference ? preference === "dark" : true;
+    
+    if (preference) {
+        const themeSelection: HTMLDivElement = document.querySelector(".theme-selection")!;
+        themeSelection.classList.add("no-transition");
+        themeSwitch.checked = preference === "dark";
+        setTimeout(() => themeSelection.classList.remove("no-transition"), 400);
+    }
+
     themeSwitch?.addEventListener("change", () => {
         if (themeSwitch.checked) {
             document.body.classList.add("theme-dark");

@@ -36,7 +36,7 @@
   right: 0;
   bottom: 0;
   background-color: var(--text-primary);;
-  transition: .4s;
+  transition: 0.4s;
     border-radius: 34px;
 }
 
@@ -48,8 +48,8 @@
   left: 4px;
   bottom: 4px;
   background-color: white;
-  transition: .4s;
-     border-radius: 50%;
+  transition: 0.4s;
+    border-radius: 50%;
     z-index: 2;
 }
 
@@ -70,6 +70,13 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
    justify-content: space-between;
+}
+
+.theme-selection.no-transition .slider,
+.theme-selection.no-transition .slider::before,
+.theme-selection.no-transition .dark-icon,
+.theme-selection.no-transition .light-icon {
+    transition: none!important;
 }
 
 
