@@ -29,3 +29,7 @@
     border-bottom: 1px solid var(--background-highlight);
     padding-bottom: 5px;
 }
+
+#content img {
+    max-width: 100%;
+}

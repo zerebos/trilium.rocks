@@ -42,6 +42,13 @@
     flex-direction: column;
      list-style: none;
     cursor: pointer;
+    max-width: 350px;
+}
+
+#menu li span {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #menu li .collapsible-label {

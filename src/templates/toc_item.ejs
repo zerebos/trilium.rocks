@@ -6,7 +6,7 @@ const slug = slugify(entry.name);
 
 <li>
     <a href="#<%= slug %>">
-        <%= entry.name %>
+        <span><%= entry.name %></span>
     </a>
 
     <% if (entry.children.length) { %>
