@@ -67,7 +67,7 @@ const customServerYml = `- url: "{protocol}://{domain}:{port}/etapi"
         let openGraphImage = subRoot.note.getLabelValue("shareOpenGraphImage");
         // Relation takes priority and requires some altering
         if (subRoot.note.hasRelation("shareOpenGraphImage")) {
-            openGraphImage = `api/images/${subRoot.note.getRelation("shareOpenGraphImage").value}/download`;
+            openGraphImage = `api/images/${subRoot.note.getRelation("shareOpenGraphImage").value}/image.png`;
         }
     %>
     <title><%= pageTitle %></title>
@@ -90,6 +90,9 @@ const customServerYml = `- url: "{protocol}://{domain}:{port}/etapi"
     <meta name="theme-color" content="<%= openGraphColor %>">
 </head>
 <%
+const logoWidth = subRoot.note.getLabelValue("shareLogoWidth");
+const logoHeight = subRoot.note.getLabelValue("shareLogoHeight");
+const mobileLogoHeight = logoHeight && logoWidth ? 32 / (logoWidth / logoHeight) : "";
 const shareRootLink = subRoot.note.hasLabel("shareRootLink") ? subRoot.note.getLabelValue("shareRootLink") : `./${subRoot.note.noteId}`;
 const currentTheme = note.getLabel("shareTheme") === "light" ? "light" : "dark";
 const themeClass = currentTheme === "light" ? " theme-light" : " theme-dark";
@@ -105,7 +108,7 @@ content = content.replaceAll(headingRe, (...match) => {
 <div id="mobile-header">
     <a href="<%= shareRootLink %>">
         <% if (subRoot.note.hasRelation("shareLogo")) { %>
-            <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/download" alt="Logo" />
+            <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/image.png" width="<%= logoWidth %>" height="<%= mobileLogoHeight %>" alt="Logo" />
         <% } %>
         <%= subRoot.note.title %>
     </a>
@@ -117,7 +120,7 @@ content = content.replaceAll(headingRe, (...match) => {
             <div id="site-header">
                 <a href="<%= shareRootLink %>">
                     <% if (subRoot.note.hasRelation("shareLogo")) { %>
-                        <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/download" alt="Logo" />
+                        <img src="api/images/<%= subRoot.note.getRelation("shareLogo").value %>/image.png" width="<%= logoWidth %>" height="<%= logoHeight %>" alt="Logo" />
                     <% } %>
                     <%= subRoot.note.title %>
                 </a>
@@ -137,7 +140,16 @@ content = content.replaceAll(headingRe, (...match) => {
             </div>
         <% if (subRoot.note.hasVisibleChildren()) { %>
             <nav id="menu">
-                <%- include("tree_item", {note: subRoot.note, activeNote: note, subRoot: subRoot}) %>
+                <%
+                const ancestors = [];
+                let notePointer = note;
+                while (notePointer.parents[0].noteId !== "_share") {
+                    const pointerParent = notePointer.parents[0];
+                    ancestors.push(pointerParent.noteId);
+                    notePointer = pointerParent;
+                }
+                %>
+                <%- include("tree_item", {note: subRoot.note, activeNote: note, subRoot: subRoot, ancestors: ancestors}) %>
             </nav>
         <% } %>   
         </div>

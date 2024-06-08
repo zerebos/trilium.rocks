@@ -16,8 +16,12 @@ const target = isExternalLink ? ` target="_blank" rel="noopener noreferrer"` : "
 <% if (note.hasVisibleChildren()) { %>
 <ul>
     <% note.getVisibleChildNotes().forEach(function (childNote) { %>
-        <% const hasChildren = childNote.hasVisibleChildren(); %>
-        <li class="<% if (hasChildren) { %>submenu-<% } %>item">
+    <%
+        const hasChildren = childNote.hasVisibleChildren();
+        const isAncestorOfActive = ancestors.some(p => p === childNote.noteId);
+        const expandedClass = isAncestorOfActive ? " expanded" : "";
+    %>
+        <li class="<% if (hasChildren) { %>submenu-<% } %>item<%= expandedClass %>">
             <%- include('tree_item', {note: childNote, subRoot: subRoot}) %>
         </li>
     <% }) %>
