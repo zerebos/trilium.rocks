@@ -16,6 +16,19 @@
     box-sizing: border-box;
 }
 
+/*
+Accent Color Ideas
+--text-link: #4693C3;
+  --text-link: #F9B273;
+  --text-link: #5CA9BF;
+  --text-link: #E43F66;
+--text-link: #2FB8D1;
+--text-link: #A78BFA;
+--text-link: #F2B049;
+--text-link: #E47B19;
+  --text-link: #FFB628;
+*/
+
 :root {
     --background-primary: #333333;
     --background-secondary: #1F1F1F;
@@ -46,6 +59,7 @@ body {
     font-family: 'Montserrat', 'Lucida Grande', 'Lucida Sans Unicode', arial, sans-serif;
     line-height: 1.5;
     color: var(--text-primary);
+    margin: 0;
 }
 
 a {
@@ -55,6 +69,10 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+pre, code, kbd, samp {
+    font-family: "JetBrains Mono", Consolas, monospace;
 }
 
 
