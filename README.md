@@ -19,3 +19,10 @@ Rather than saying some specific goals of what this site strives to be, I'll say
 ## Contributing
 
 Since the entire site is just a share from my personal Trilium instance, there is no easy way to contribute new pages or fixes for typos. For now, this GitHub repo's issues and discussion can be used as places to contribute bug reports, feature requests, and even documentation contributions. But who knows, maybe soon I'll think of some clever way to introduce contributions directly to my Trilium instance.
+
+## Trilium Next
+
+The theme works with [Trilium Next Notes]([url](https://github.com/TriliumNext/Notes)) also, with some adjustment.
+
+* Ensure _Embedded Javascript_ mime-type for Code Notes is enabled in _Options_ (in order to use that attribute for the _theme_ notes, see [TN #846]([url](https://github.com/orgs/TriliumNext/discussions/846)).
+* Edit `src/theme/page.ejs` and change `<link href="../<%= assetPath %>/libraries/normalize.min.css" rel="stylesheet">` to `<link href="../<%= assetPath %>/libraries/normalize.min.css" rel="stylesheet">` (see [#4]([url](https://github.com/zerebos/trilium.rocks/issues/4)))
