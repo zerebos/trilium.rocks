@@ -11,17 +11,16 @@
 //     }
 // }
 
-export default function setupExpanders() {
-    const expanders = Array.from(document.querySelectorAll("#menu .submenu-item"));
-    for (const ex of expanders) {
-        ex.addEventListener("click", e => {
-            if ((e.target as Element).closest(".submenu-item,.item") !== ex) return;
-            e.preventDefault();
-            e.stopPropagation();
-            const ul = ex.querySelector("ul")!;
-            ul.style.height = `${ul.scrollHeight}px`;
-            setTimeout(() => ex.classList.toggle("expanded"), 1);
-            setTimeout(() => ul.style.height = ``, 200);
-        });
-    }
+function setupExpanders() {
+  const expanders = Array.from(document.querySelectorAll("#menu .submenu-item button"));
+  for (const ex of expanders) {
+    ex.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const ul = ex.parentElement.parentElement;
+      ul.style.height = `${ul.scrollHeight}px`;
+      setTimeout(() => ul.classList.toggle("expanded"), 1);
+      setTimeout(() => ul.style.height = ``, 1);
+    });
+  }
 }
